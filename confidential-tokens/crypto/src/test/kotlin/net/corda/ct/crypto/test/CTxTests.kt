@@ -1,8 +1,12 @@
-package net.corda.ct.test
+package net.corda.ct.crypto.test
 
 
 import net.corda.core.crypto.Crypto
-import net.corda.ct.crypto.*
+import net.corda.ct.crypto.AOS
+import net.corda.ct.crypto.Borromean
+import net.corda.ct.crypto.generateRandomAOSKeys
+import net.corda.ct.crypto.generateRandomBorromeanKeys
+import net.corda.ct.crypto2.*
 import org.bouncycastle.asn1.nist.NISTNamedCurves
 import org.bouncycastle.asn1.sec.SECNamedCurves
 import org.bouncycastle.crypto.ec.CustomNamedCurves
