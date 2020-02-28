@@ -22,6 +22,7 @@ import net.corda.core.utilities.unwrap
 import net.corda.ct.contract.ConfidentialAmount
 import net.corda.ct.contract.ConfidentialToken
 import net.corda.ct.contract.ConfidentialTokenSchemaV1
+import net.corda.ct.crypto.CryptoParameters
 import net.corda.ct.crypto.PedersenCommitment
 import java.math.BigInteger
 import java.util.*
@@ -59,7 +60,7 @@ class IssueAndMoveConfidentialTokensFlow(
         logger.info("Issuing a confidential token for quantity: $issueQuantity")
 
         // Create a token with a confidential amount
-        val issueSecret = PedersenCommitment.generateSecret()
+        val issueSecret = CryptoParameters.generateSecret()
         val issueConfidentialAmount = ConfidentialAmount.generate(amount(issueQuantity, defaultIssuedTokenType), issueSecret)
         val issueToken = ConfidentialToken(issueConfidentialAmount, myIdentity)
 
@@ -83,7 +84,7 @@ class IssueAndMoveConfidentialTokensFlow(
         val session = initiateFlow(recipient)
 
         // Create token output state for the recipient
-        val moveSecret = PedersenCommitment.generateSecret()
+        val moveSecret = CryptoParameters.generateSecret()
         val confidentialMoveAmount = ConfidentialAmount.generate(amount(moveQuantity, defaultIssuedTokenType), moveSecret)
         val movedToken = ConfidentialToken(confidentialMoveAmount, recipient, inputToken.state.data.tokenTypeJarHash)
 
