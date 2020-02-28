@@ -22,7 +22,7 @@ object Borromean {
         for (i in 0 until numOfRings) {
             rij = g.multiply(kList[i])
             for (j in (indices[i] + 1) until (publicKeys[i].size)) {
-                eij = computeEij (m, rij.getEncoded(true), i, j)
+                eij = computeEij(m, rij.getEncoded(true), i, j)
                 rij = g.multiply(sList[i][j]).add(publicKeys[i][j].multiply(eij))
             }
             // TODO: use digest.update vs concatentation.
@@ -33,10 +33,10 @@ object Borromean {
 
         // Step 4.
         for (i in 0 until numOfRings) {
-            eij = computeEij (m, e0, i, 0)
+            eij = computeEij(m, e0, i, 0)
             for (j in 0 until indices[i]) {
                 rij = g.multiply(sList[i][j]).add(publicKeys[i][j].multiply(eij))
-                eij = computeEij (m, rij.getEncoded(true), i, j + 1)
+                eij = computeEij(m, rij.getEncoded(true), i, j + 1)
             }
             sList[i][indices[i]] = (kList[i] - (privateKeys[i].multiply(eij))).mod(n)
         }
@@ -50,10 +50,10 @@ object Borromean {
         var eij: BigInteger
         var e0Verify = m
         for (i in 0 until publicKeys.size) {
-            eij = computeEij (m, borromeanSig.e0, i, 0)
+            eij = computeEij(m, borromeanSig.e0, i, 0)
             for (j in 0 until publicKeys[i].size) {
                 rij = g.multiply(borromeanSig.si[i][j]).add(publicKeys[i][j].multiply(eij))
-                eij = computeEij (m, rij.getEncoded(true), i, j + 1)
+                eij = computeEij(m, rij.getEncoded(true), i, j + 1)
             }
             e0Verify += rij.getEncoded(true)
         }

@@ -1,4 +1,4 @@
-package net.corda.ct.crypto
+package net.corda.ct.crypto2
 
 import org.bouncycastle.asn1.x9.X9ECParameters
 import org.bouncycastle.jce.spec.ECParameterSpec

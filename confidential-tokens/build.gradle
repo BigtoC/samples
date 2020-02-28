@@ -4,7 +4,7 @@ buildscript {
 
     ext {
         corda_release_group = constants.getProperty("cordaReleaseGroup")
-        corda_release_version = constants.getProperty("cordaVersion")
+        corda_release_version = "4.4-RC03"
         corda_gradle_plugins_version = constants.getProperty("gradlePluginsVersion")
         kotlin_version = constants.getProperty("kotlinVersion")
         junit_version = constants.getProperty("junitVersion")
@@ -27,6 +27,9 @@ buildscript {
             url 'https://ci-artifactory.corda.r3cev.com/artifactory/corda-releases'
         }
         mavenLocal()
+        flatDir {
+            dirs 'lib'
+        }
     }
 
     dependencies {
@@ -34,6 +37,7 @@ buildscript {
         classpath "net.corda.plugins:cordapp:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:cordformation:$corda_gradle_plugins_version"
         classpath "net.corda.plugins:quasar-utils:$corda_gradle_plugins_version"
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
     }
 }
 

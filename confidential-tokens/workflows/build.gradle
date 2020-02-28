@@ -6,7 +6,7 @@ apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
 apply plugin: 'net.corda.plugins.quasar-utils'
 
-jar.baseName = "cordapp-example-workflows"
+jar.baseName = "confidential-tokens-workflows"
 
 cordapp {
     targetPlatformVersion corda_platform_version.toInteger()
@@ -16,6 +16,9 @@ cordapp {
         vendor "Corda Open Source"
         licence "Apache License, Version 2.0"
         versionId 1
+    }
+    signing {
+        enabled false
     }
 }
 
@@ -55,7 +58,9 @@ dependencies {
 
     // CorDapp dependencies.
     cordapp project(":contracts")
-    cordaCompile "$tokens_release_group:tokens-workflows:$tokens_release_version"
+    cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
+    cordapp "$tokens_release_group:tokens-selection:$tokens_release_version"
+
 }
 
 task integrationTest(type: Test, dependsOn: []) {
@@ -75,6 +80,10 @@ tasks.withType(KotlinCompile) {
 task deployNodes(type: Cordform, dependsOn: ['jar']) {
     nodeDefaults {
         cordapp project(":contracts")
+        cordapp "$tokens_release_group:tokens-workflows:$tokens_release_version"
+        cordapp "$tokens_release_group:tokens-selection:$tokens_release_version"
+        extraConfig = [h2Settings: [address: "localhost:0"]]
+
     }
     node {
         name "O=Notary,L=London,C=GB"

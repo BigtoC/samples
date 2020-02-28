@@ -1,4 +1,4 @@
-package net.corda.ct.crypto
+package net.corda.ct.crypto2
 
 import net.corda.core.crypto.sha256
 import net.corda.core.utilities.toBase64
