@@ -26,27 +26,27 @@ class StandardController(rpc: NodeRPCConnection) {
     @GetMapping(value = ["/status"], produces = arrayOf("text/plain"))
     private fun status() = "200"
 
-    @GetMapping(value = ["/servertime"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/servertime"], produces = ["text/plain"])
     private fun serverTime() = LocalDateTime.ofInstant(proxy.currentNodeTime(), ZoneId.of("UTC")).toString()
 
-    @GetMapping(value = ["/addresses"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/addresses"], produces = ["text/plain"])
     private fun addresses() = proxy.nodeInfo().addresses.toString()
 
-    @GetMapping(value = ["/identities"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/identities"], produces = ["text/plain"])
     private fun identities() = proxy.nodeInfo().legalIdentities.toString()
 
-    @GetMapping(value = ["/platformversion"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/platformversion"], produces = ["text/plain"])
     private fun platformVersion() = proxy.nodeInfo().platformVersion.toString()
 
-    @GetMapping(value = ["/peers"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/peers"], produces = ["text/plain"])
     private fun peers() = proxy.networkMapSnapshot().flatMap { it.legalIdentities }.toString()
 
-    @GetMapping(value = ["/notaries"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/notaries"], produces = ["text/plain"])
     private fun notaries() = proxy.notaryIdentities().toString()
 
-    @GetMapping(value = ["/flows"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/flows"], produces = ["text/plain"])
     private fun flows() = proxy.registeredFlows().toString()
 
-    @GetMapping(value = ["/states"], produces = arrayOf("text/plain"))
+    @GetMapping(value = ["/states"], produces = ["text/plain"])
     private fun states() = proxy.vaultQueryBy<ContractState>().states.toString()
 }
